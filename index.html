@@ -21,6 +21,9 @@
 
     <!-- Настройка viewport для адаптивности: ширина=device-width, масштаб=1 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="max-age=31536000, public, immutable">
+    <meta http-equiv="Expires" content="Thu, 31 Dec 2030 23:59:59 GMT">
+    <meta http-equiv="Pragma" content="cache">
 
     <!-- Заголовок страницы, отображается во вкладке браузера и в поисковиках -->
     <title>SkiResort - Главная</title>
@@ -32,7 +35,7 @@
     <link rel="preload" href="./assets/js/main.js" as="script">
 
     <!-- Подключение основного CSS-файла с оптимизацией: сначала как print, потом переключаем на all -->
-    <link rel="stylesheet" href="assets/css/style.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css?v=2">
 
     <!-- Fallback для пользователей без JavaScript: загружаем CSS сразу -->
     <noscript>
@@ -628,7 +631,7 @@
     <!-- ========================================== -->
 
     <!-- Подключение основного JS-файла с defer: скрипт загружается асинхронно, выполняется после парсинга HTML -->
-    <script src="assets/js/main.min.js"></script>
+    <script src="./assets/js/main.js?v=2" defer></script>
 
     <!-- Закрывающий тег BODY: конец видимого контента -->
 </body>

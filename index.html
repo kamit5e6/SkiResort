@@ -1,175 +1,328 @@
+<!-- Объявление типа документа: указываем, что это HTML5 -->
 <!DOCTYPE html>
+
+<!-- Открывающий тег HTML с указанием языка страницы (русский) -->
 <html lang="ru">
 
+<!-- ========================================== -->
+<!-- HEAD: Метаданные и подключение ресурсов    -->
+<!-- ========================================== -->
+
+<!-- Открывающий тег HEAD: здесь хранятся метаданные страницы -->
 <head>
+    <!-- Кодировка документа: UTF-8 поддерживает кириллицу и спецсимволы -->
     <meta charset="UTF-8">
+    
+    <!-- Настройка viewport для адаптивности: ширина=device-width, масштаб=1 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Заголовок страницы, отображается во вкладке браузера и в поисковиках -->
     <title>SkiResort - Главная</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <!-- Preload CSS: загружаем стиль в фоновом режиме для ускорения отрисовки -->
+    <link rel="preload" href="./assets/css/style.css" as="style">
+    
+    <!-- Preload JavaScript: предзагружаем скрипт -->
+    <link rel="preload" href="./assets/js/main.js" as="script">
+    
+    <!-- Подключение основного CSS-файла с оптимизацией: сначала как print, потом переключаем на all -->
+    <link rel="stylesheet" href="./assets/css/style.css" media="print" onload="this.media='all'">
+    
+    <!-- Fallback для пользователей без JavaScript: загружаем CSS сразу -->
+    <noscript><link rel="stylesheet" href="./assets/css/style.css"></noscript>
+    
+    <!-- ========================================== -->
+    <!-- КРИТИЧЕСКИЙ CSS (инлайн для быстрой отрисовки) -->
+    <!-- ========================================== -->
+    <style>
+        /* Сброс отступов body и базовый шрифт */
+        body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+        /* Фиксированная шапка с полупрозрачностью и размытием фона */
+        .header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(10px)}
+        /* Hero-секция на весь экран с центрированием контента */
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center}
+    </style>
+
+<!-- Закрывающий тег HEAD: конец метаданных -->
 </head>
 
+<!-- ========================================== -->
+<!-- BODY: Видимое содержимое страницы          -->
+<!-- ========================================== -->
+
+<!-- Открывающий тег BODY: здесь начинается видимый контент -->
 <body>
-    <!-- Шапка -->
+    <!-- ========================================== -->
+    <!-- HEADER: Шапка сайта (навигация, логотип)   -->
+    <!-- ========================================== -->
+    
+    <!-- Тег header: семантический блок шапки сайта -->
     <header class="header">
+        <!-- Контейнер для выравнивания элементов шапки -->
         <div class="header__container">
+            <!-- Логотип: ссылка на главную страницу -->
             <a href="../../index.html" class="header__logo">
+                <!-- SVG-иконка логотипа: треугольник/гора с градиентом -->
                 <svg class="logo__icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <path d="M16 2L4 26H28L16 2Z" fill="url(#gradient)" stroke="url(#gradient)" stroke-width="2" />
+                    <!-- Путь треугольника: вершина(16,2), низ(4,26) и (28,26) -->
+                    <path d="M16 2L4 26H28L16 2Z" fill="url(#gradient)" stroke="url(#gradient)" stroke-width="2"/>
+                    
+                    <!-- Definitions: определяем градиент для заливки и обводки -->
                     <defs>
+                        <!-- linearGradient: линейный градиент от точки (4,2) до (28,26) -->
                         <linearGradient id="gradient" x1="4" y1="2" x2="28" y2="26">
-                            <stop offset="0%" stop-color="#06b6d4" />
-                            <stop offset="100%" stop-color="#3b82f6" />
+                            <!-- Первая точка градиента: начало (0%) → голубой цвет -->
+                            <stop offset="0%" stop-color="#06b6d4"/>
+                            <!-- Вторая точка градиента: конец (100%) → синий цвет -->
+                            <stop offset="100%" stop-color="#3b82f6"/>
                         </linearGradient>
                     </defs>
+                    <!-- Закрывающий тег SVG -->
                 </svg>
+                <!-- Текстовая часть логотипа -->
                 <span class="logo__text">SkiResort</span>
             </a>
+            
+            <!-- Блок с кнопками действий в шапке -->
             <div class="header__actions">
-                <button class="header__icon theme-toggle" id="themeToggle">
-                    <svg class="icon-sun" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <circle cx="12" cy="12" r="5" />
-                        <path
-                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                <!-- Кнопка переключения темы (светлая/темная) с aria-label для доступности -->
+                <button class="header__icon theme-toggle" id="themeToggle" aria-label="Переключить тему">
+                    <!-- SVG иконка солнца: круг + лучи -->
+                    <svg class="icon-sun" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- Центральный круг -->
+                        <circle cx="12" cy="12" r="5"/>
+                        <!-- 8 лучей солнца: вверх, вниз, 4 диагонали -->
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
                     </svg>
-                    <svg class="icon-moon hidden" width="22" height="22" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    <!-- SVG иконка луны: скрыта по умолчанию, показывается в темной теме -->
+                    <svg class="icon-moon hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- Полумесяц -->
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                     </svg>
                 </button>
-                <button class="header__icon cart-icon" id="cartIcon">
+                
+                <!-- Кнопка корзины с aria-label для доступности -->
+                <button class="header__icon cart-icon" id="cartIcon" aria-label="Корзина">
+                    <!-- SVG иконка корзины -->
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="9" cy="21" r="1" />
-                        <circle cx="20" cy="21" r="1" />
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                        <!-- Два колеса корзины -->
+                        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                        <!-- Корзина: ручка, стенки, дно -->
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
                     </svg>
+                    <!-- Счетчик товаров в корзине (показывается через JS) -->
                     <span class="cart-icon__count" id="cartCount">0</span>
                 </button>
-                <button class="burger-menu" id="burgerMenu"><span class="burger-line"></span><span
-                        class="burger-line"></span><span class="burger-line"></span></button>
+                
+                <!-- Кнопка бургер-меню для мобильных устройств с aria-label -->
+                <button class="burger-menu" id="burgerMenu" aria-label="Меню">
+                    <!-- Три полоски бургер-меню -->
+                    <span class="burger-line"></span><span class="burger-line"></span><span class="burger-line"></span>
+                </button>
             </div>
         </div>
+        
+        <!-- Навигационное меню: скрыто по умолчанию, открывается через бургер -->
         <nav class="nav" id="navMenu">
+            <!-- Список навигационных ссылок -->
             <ul class="nav__list">
+                <!-- Ссылка на главную (активная страница) -->
                 <li class="nav__item"><a href="../../index.html" class="nav__link nav__link--active">Главная</a></li>
+                <!-- Ссылка на каталог товаров -->
                 <li class="nav__item"><a href="./assets/page/catalog.html" class="nav__link">Каталог</a></li>
+                <!-- Ссылка на страницу отелей -->
                 <li class="nav__item"><a href="./assets/page/hotels.html" class="nav__link">Отели</a></li>
+                <!-- Ссылка на личный кабинет -->
                 <li class="nav__item"><a href="./assets/page/account.html" class="nav__link">Аккаунт</a></li>
+                <!-- Кнопка входа в аккаунт (открывает модальное окно) -->
                 <li class="nav__item"><button class="nav__link nav__link--auth" id="openAuthModal">Войти</button></li>
             </ul>
         </nav>
     </header>
 
+    <!-- ========================================== -->
+    <!-- MAIN: Основное содержимое страницы         -->
+    <!-- ========================================== -->
+    
+    <!-- Тег main: семантический блок основного контента -->
     <main>
-        <!-- 1. Первый экран (Рекламный блок) -->
+        <!-- ========================================== -->
+        <!-- HERO СЕКЦИЯ: Рекламный блок с видео        -->
+        <!-- ========================================== -->
+        
+        <!-- Секция hero: занимает весь экран, показывает видео-фон -->
         <section class="hero">
+            <!-- Контейнер для видео-фона -->
             <div class="hero__video-bg">
-                <video autoplay muted loop playsinline class="hero__video">
+                <!-- Видео-элемент: автовоспроизведение, без звука, зацикленное -->
+                <video autoplay muted loop playsinline class="hero__video" poster="./assets/img/hero-poster.jpg" preload="none">
+                    <!-- Источник видео в формате MP4 -->
                     <source src="./assets/vecteezy_skiing-down-snow-covered-mountain-in-the-alps-on-a-sunny-day_71729996.mp4" type="video/mp4">
-                    <img src="./assets/vecteezy_skiing-down-snow-covered-mountain-in-the-alps-on-a-sunny-day_71729996.mp4" alt="Горы">
                 </video>
+                <!-- Затемняющий оверлей поверх видео для читаемости текста -->
                 <div class="hero__overlay"></div>
             </div>
+            
+            <!-- Контент hero-секции: заголовок, подзаголовок, кнопка -->
             <div class="hero__content">
+                <!-- Главный заголовок страницы -->
                 <h1 class="hero__title">Зима вашей мечты</h1>
+                <!-- Подзаголовок/слоган -->
                 <p class="hero__subtitle">Лучшие горнолыжные трассы Европы</p>
+                <!-- Кнопка-ссылка для бронирования (переход в каталог) -->
                 <a href="./assets/page/catalog.html" class="btn btn--primary">Забронировать</a>
             </div>
         </section>
 
-        <!-- 2. О нас -->
-        <section class="about section">
+        <!-- ========================================== -->
+        <!-- СЕКЦИЯ "О НАС": Аккордеон с информацией    -->
+        <!-- ========================================== -->
+        
+        <!-- Секция about: с отступами, с атрибутом loading для ленивой загрузки -->
+        <section class="about section" loading="lazy">
+            <!-- Контейнер для центрирования и ограничения ширины -->
             <div class="container">
+                <!-- Заголовок секции -->
                 <h2 class="section__title">О нас</h2>
+                
+                <!-- Аккордеон: раскрывающиеся блоки с информацией -->
                 <div class="accordion">
+                    <!-- Первый блок аккордеона -->
                     <div class="accordion__item">
-                        <button class="accordion__header"><span>История курорта</span><span
-                                class="accordion__icon">+</span></button>
-                        <div class="accordion__content">
-                            <p>SkiResort работает с 1995 года. Мы создали лучшие условия для отдыха.</p>
-                        </div>
+                        <!-- Кнопка-заголовок с aria-expanded для доступности -->
+                        <button class="accordion__header" aria-expanded="false"><span>История курорта</span><span class="accordion__icon">+</span></button>
+                        <!-- Скрытый контент: раскрывается при клике на кнопку -->
+                        <div class="accordion__content"><p>SkiResort работает с 1995 года. Мы создали лучшие условия для отдыха.</p></div>
                     </div>
+                    
+                    <!-- Второй блок аккордеона -->
                     <div class="accordion__item">
-                        <button class="accordion__header"><span>Преимущества</span><span
-                                class="accordion__icon">+</span></button>
-                        <div class="accordion__content">
-                            <p>120 км трасс, 45 подъемников, профессиональные инструкторы.</p>
-                        </div>
+                        <!-- Кнопка-заголовок -->
+                        <button class="accordion__header" aria-expanded="false"><span>Преимущества</span><span class="accordion__icon">+</span></button>
+                        <!-- Скрытый контент -->
+                        <div class="accordion__content"><p>120 км трасс, 45 подъемников, профессиональные инструкторы.</p></div>
                     </div>
+                    
+                    <!-- Третий блок аккордеона -->
                     <div class="accordion__item">
-                        <button class="accordion__header"><span>Инфраструктура</span><span
-                                class="accordion__icon">+</span></button>
-                        <div class="accordion__content">
-                            <p>Рестораны, спа-центры, прокат снаряжения, медицинский пункт.</p>
-                        </div>
+                        <!-- Кнопка-заголовок -->
+                        <button class="accordion__header" aria-expanded="false"><span>Инфраструктура</span><span class="accordion__icon">+</span></button>
+                        <!-- Скрытый контент -->
+                        <div class="accordion__content"><p>Рестораны, спа-центры, прокат снаряжения, медицинский пункт.</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. Наша команда (Слайдер со стрелками) -->
-        <section class="team section section--gray">
+        <!-- ========================================== -->
+        <!-- СЕКЦИЯ "КОМАНДА": Слайдер с карточками     -->
+        <!-- ========================================== -->
+        
+        <!-- Секция team: серый фон (section--gray), ленивая загрузка -->
+        <section class="team section section--gray" loading="lazy">
+            <!-- Контейнер -->
             <div class="container">
+                <!-- Заголовок секции -->
                 <h2 class="section__title">Наша команда</h2>
+                
+                <!-- Обертка слайдера с кнопками навигации -->
                 <div class="slider-wrapper">
-                    <button class="slider-arrow slider-arrow--prev" id="teamPrev">‹</button>
+                    <!-- Кнопка "Предыдущий слайд" с aria-label -->
+                    <button class="slider-arrow slider-arrow--prev" id="teamPrev" aria-label="Предыдущий">‹</button>
+                    
+                    <!-- Трек слайдера: горизонтальная прокрутка -->
                     <div class="slider-track" id="teamSlider">
+                        <!-- Карточка сотрудника 1 -->
                         <div class="slider-card">
-                            <img src="./assets/img/director.png" alt="Директор"
-                                class="slider-card__img">
+                            <!-- Изображение с lazy loading и фиксированными размерами -->
+                            <img src="./assets/img/director.png" alt="Директор" class="slider-card__img" loading="lazy" width="280" height="300">
+                            <!-- Контент карточки -->
                             <div class="slider-card__content">
+                                <!-- Имя сотрудника -->
                                 <h3 class="card__title">Александр Петров</h3>
+                                <!-- Должность -->
                                 <p class="card__text">Генеральный директор</p>
                             </div>
                         </div>
+                        
+                        <!-- Карточка сотрудника 2 -->
                         <div class="slider-card">
-                            <img src="./assets/img/inctryctor.jpg" alt="Инструктор"
-                                class="slider-card__img">
+                            <!-- Изображение -->
+                            <img src="./assets/img/inctryctor.jpg" alt="Инструктор" class="slider-card__img" loading="lazy" width="280" height="300">
+                            <!-- Контент -->
                             <div class="slider-card__content">
                                 <h3 class="card__title">Мария Иванова</h3>
                                 <p class="card__text">Главный инструктор</p>
                             </div>
                         </div>
+                        
+                        <!-- Карточка сотрудника 3 -->
                         <div class="slider-card">
-                            <img src="./assets/img/gid.jpg" alt="Гид"
-                                class="slider-card__img">
+                            <!-- Изображение -->
+                            <img src="./assets/img/gid.jpg" alt="Гид" class="slider-card__img" loading="lazy" width="280" height="300">
+                            <!-- Контент -->
                             <div class="slider-card__content">
                                 <h3 class="card__title">Дмитрий Сидоров</h3>
                                 <p class="card__text">Гид-эксперт</p>
                             </div>
                         </div>
                     </div>
-                    <button class="slider-arrow slider-arrow--next" id="teamNext">›</button>
+                    
+                    <!-- Кнопка "Следующий слайд" с aria-label -->
+                    <button class="slider-arrow slider-arrow--next" id="teamNext" aria-label="Следующий">›</button>
                 </div>
             </div>
         </section>
 
-        <!-- 4. Отели -->
-        <section class="hotels section">
+        <!-- ========================================== -->
+        <!-- СЕКЦИЯ "ОТЕЛИ": Карточки популярных отелей -->
+        <!-- ========================================== -->
+        
+        <!-- Секция hotels: ленивая загрузка -->
+        <section class="hotels section" loading="lazy">
+            <!-- Контейнер -->
             <div class="container">
+                <!-- Заголовок секции -->
                 <h2 class="section__title">Популярные отели</h2>
+                
+                <!-- Сетка карточек: 2 колонки (inline-стиль для переопределения) -->
                 <div class="product-grid" style="grid-template-columns: repeat(2, 1fr);">
-                    <!-- Отель 1 -->
+                    <!-- Карточка отеля 1: ссылка на страницу бронирования с ID=1 -->
                     <a href="./assets/page/hotel-booking.html?id=1" class="product-card">
+                        <!-- Обертка изображения -->
                         <div class="product-img-wrapper">
-                            <img src="./assets/img/alpine-2.jpg" alt="Alpine Resort">
+                            <!-- Изображение отеля с lazy loading и размерами -->
+                            <img src="./assets/img/alpine-2.jpg" alt="Alpine Resort" loading="lazy" width="400" height="300">
+                            <!-- Бейдж рейтинга -->
                             <span class="badge badge--hot">⭐ 4.9</span>
                         </div>
+                        
+                        <!-- Информация об отеле -->
                         <div class="product-info">
+                            <!-- Название отеля -->
                             <h3 class="product-title">Alpine Resort</h3>
+                            <!-- Описание -->
                             <p class="product-desc">5 звезд • В центре курорта</p>
+                            <!-- Псевдо-кнопка (span вместо button, т.к. внутри <a>) -->
                             <span class="btn btn--primary btn--sm btn--full" style="display:inline-block;text-align:center;cursor:pointer;">Подробнее</span>
                         </div>
                     </a>
-                    <!-- Отель 2 -->
+                    
+                    <!-- Карточка отеля 2: ссылка на страницу бронирования с ID=2 -->
                     <a href="./assets/page/hotel-booking.html?id=2" class="product-card">
+                        <!-- Обертка изображения -->
                         <div class="product-img-wrapper">
-                            <img src="./assets/img/lodge-1.png" alt="Mountain Lodge">
+                            <!-- Изображение -->
+                            <img src="./assets/img/lodge-1.png" alt="Mountain Lodge" loading="lazy" width="400" height="300">
+                            <!-- Бейдж скидки -->
                             <span class="badge badge--sale">-15%</span>
                         </div>
+                        
+                        <!-- Информация -->
                         <div class="product-info">
                             <h3 class="product-title">Mountain Lodge</h3>
                             <p class="product-desc">4 звезды • Уютное шале</p>
+                            <!-- Псевдо-кнопка -->
                             <span class="btn btn--primary btn--sm btn--full" style="display:inline-block;text-align:center;cursor:pointer;">Подробнее</span>
                         </div>
                     </a>
@@ -177,59 +330,93 @@
             </div>
         </section>
 
-        <!-- 5. Контакты -->
-        <section class="contacts section section--gray">
+        <!-- ========================================== -->
+        <!-- СЕКЦИЯ "КОНТАКТЫ": Табы с информацией      -->
+        <!-- ========================================== -->
+        
+        <!-- Секция contacts: серый фон, ленивая загрузка -->
+        <section class="contacts section section--gray" loading="lazy">
+            <!-- Контейнер -->
             <div class="container">
+                <!-- Заголовок секции -->
                 <h2 class="section__title">Контакты</h2>
+                
+                <!-- Компонент табов: переключение между контентом -->
                 <div class="tabs">
+                    <!-- Навигация табов: кнопки для переключения -->
                     <div class="tabs__nav">
+                        <!-- Кнопка таба 1: информация (активна по умолчанию) -->
                         <button class="tabs__btn tabs__btn--active" data-tab="info">📍 Инфо</button>
+                        <!-- Кнопка таба 2: карта -->
                         <button class="tabs__btn" data-tab="map">🗺️ Карта</button>
+                        <!-- Кнопка таба 3: форма обратной связи -->
                         <button class="tabs__btn" data-tab="form">✉️ Написать</button>
                     </div>
+                    
+                    <!-- Контент табов -->
                     <div class="tabs__content">
+                        <!-- Панель таба 1: контактная информация (активна) -->
                         <div class="tabs__panel tabs__panel--active" data-panel="info">
+                            <!-- Сетка карточек: 2 колонки с отступом -->
                             <div class="card-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <!-- Карточка 1: адрес -->
                                 <div class="card" style="padding: 20px; text-align: center;">
+                                    <!-- Заголовок карточки -->
                                     <h3 style="font-size: 18px; margin-bottom: 8px;">📍 Адрес</h3>
+                                    <!-- Текст адреса -->
                                     <p style="color: var(--text-muted); margin:0;">Камчатка, 74400</p>
                                 </div>
+                                <!-- Карточка 2: телефон -->
                                 <div class="card" style="padding: 20px; text-align: center;">
+                                    <!-- Заголовок -->
                                     <h3 style="font-size: 18px; margin-bottom: 8px;">📞 Телефон</h3>
+                                    <!-- Текст телефона -->
                                     <p style="color: var(--text-muted); margin:0;">+33 1 23 45 67</p>
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Панель таба 2: карта Google Maps (скрыта по умолчанию) -->
                         <div class="tabs__panel" data-panel="map">
+                            <!-- Карточка с картой -->
                             <div class="card" style="padding: 24px; background: var(--bg-card); border-radius: 16px;">
+                                <!-- Заголовок -->
                                 <h3 style="margin-bottom: 20px;">Мы на карте</h3>
                                 
-                                <!-- Google Maps - Камчатка -->
+                                <!-- Контейнер карты: скругленные углы, overflow hidden -->
                                 <div style="width: 100%; height: 400px; border-radius: 12px; overflow: hidden; margin-bottom: 20px;">
+                                    <!-- iframe Google Maps: встроенная карта -->
                                     <iframe 
                                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1234567.89!2d158.654745!3d53.044890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTPCsDAyJzQxLjYiTiAxNTjCsDM5JzE3LjEiRQ!5e0!3m2!1sru!2sru!4v1234567890" 
                                         style="width: 100%; height: 400px; border: 0;" 
                                         allowfullscreen="" 
-                                        loading="lazy">
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade">
                                     </iframe>
                                 </div>
                                 
+                                <!-- Кнопка открытия карты в новом окне -->
                                 <div style="text-align: center;">
-                                    <a href="https://goo.gl/maps/Kamchatka" target="_blank" class="btn btn--primary" style="display: inline-flex; align-items: center; gap: 8px;">
-                                        🗺️ Открыть в Google Maps
+                                    <!-- Ссылка с target="_blank" и rel для безопасности -->
+                                    <a href="https://goo.gl/maps/Kamchatka" target="_blank" rel="noopener noreferrer" class="btn btn--primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                                        ️ Открыть в Google Maps
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Панель таба 3: форма обратной связи (скрыта) -->
                         <div class="tabs__panel" data-panel="form">
+                            <!-- Форма: ограничение ширины, центрирование -->
                             <form class="form" style="max-width: 400px; margin: 0 auto;">
-                                <div class="form-group"><label class="form-label">Ваше имя</label><input type="text"
-                                        class="form-input" placeholder="Иван Иванов"></div>
-                                <div class="form-group"><label class="form-label">Email</label><input type="email"
-                                        class="form-input" placeholder="ivan@example.com"></div>
-                                <div class="form-group"><label class="form-label">Сообщение</label><textarea
-                                        class="form-textarea" rows="3" placeholder="Ваш вопрос..."></textarea></div>
-                                <button class="btn btn--primary btn--full">Отправить</button>
+                                <!-- Поле: имя -->
+                                <div class="form-group"><label class="form-label">Ваше имя</label><input type="text" class="form-input" placeholder="Иван Иванов"></div>
+                                <!-- Поле: email -->
+                                <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="ivan@example.com"></div>
+                                <!-- Поле: сообщение (textarea) -->
+                                <div class="form-group"><label class="form-label">Сообщение</label><textarea class="form-textarea" rows="3" placeholder="Ваш вопрос..."></textarea></div>
+                                <!-- Кнопка отправки с type="submit" -->
+                                <button class="btn btn--primary btn--full" type="submit">Отправить</button>
                             </form>
                         </div>
                     </div>
@@ -238,108 +425,165 @@
         </section>
     </main>
 
-    <!-- Футер -->
+    <!-- ========================================== -->
+    <!-- FOOTER: Подвал сайта                       -->
+    <!-- ========================================== -->
+    
+    <!-- Тег footer: семантический блок подвала -->
     <footer class="footer">
+        <!-- Контейнер -->
         <div class="container">
+            <!-- Сетка футера: 2 колонки -->
             <div class="footer__grid">
+                <!-- Колонка 1: логотип и описание -->
                 <div class="footer__column">
+                    <!-- Заголовок футера -->
                     <h3 class="footer__title">SkiResort</h3>
+                    <!-- Описание компании -->
                     <p class="footer__text">Лучший курорт Европы с 1995 года</p>
                 </div>
+                
+                <!-- Колонка 2: навигация -->
                 <div class="footer__column">
+                    <!-- Заголовок навигации -->
                     <h3 class="footer__title">Разделы</h3>
+                    <!-- Список ссылок -->
                     <ul class="footer__list">
+                        <!-- Ссылка на главную -->
                         <li><a href="../../index.html" class="footer__link">Главная</a></li>
+                        <!-- Ссылка на каталог -->
                         <li><a href="./assets/page/catalog.html" class="footer__link">Каталог</a></li>
+                        <!-- Ссылка на отели -->
                         <li><a href="./assets/page/hotels.html" class="footer__link">Отели</a></li>
+                        <!-- Ссылка на аккаунт -->
                         <li><a href="./assets/page/account.html" class="footer__link">Аккаунт</a></li>
+                        <!-- Ссылка на админ-панель (пониженная прозрачность) -->
                         <li><a href="./assets/page/admin.html" class="footer__link" style="opacity: 0.6;">🔧 Админ-панель</a></li>
                     </ul>
                 </div>
             </div>
+            
+            <!-- Нижняя часть футера: копирайт -->
             <div class="footer__bottom">
+                <!-- Текст копирайта -->
                 <p class="footer__copyright">© 2026 SkiResort. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Модальное окно: Корзина -->
+    <!-- ========================================== -->
+    <!-- МОДАЛЬНЫЕ ОКНА (скрыты по умолчанию)       -->
+    <!-- ========================================== -->
+    
+    <!-- Модальное окно: Корзина покупок -->
     <div class="modal" id="cartModal">
+        <!-- Оверлей: затемнение фона при открытии -->
         <div class="modal__overlay" id="cartModalOverlay"></div>
+        <!-- Контент модального окна -->
         <div class="modal__content modal__content--cart">
+            <!-- Кнопка закрытия (крестик) -->
             <button class="modal__close" id="cartModalClose">×</button>
+            <!-- Заголовок -->
             <h2 class="modal__title">Корзина</h2>
+            <!-- Контейнер для списка товаров (заполняется через JS) -->
             <div class="cart-items" id="cartItems"></div>
+            <!-- Футер корзины: итого и кнопка оформления -->
             <div class="cart-footer" id="cartFooter" style="display:none;">
+                <!-- Строка с итоговой суммой -->
                 <div class="cart-total"><span>Итого:</span><span id="cartTotalPrice">0 ₽</span></div>
+                <!-- Кнопка оформления заказа -->
                 <button id="checkoutBtn" class="btn btn--primary btn--full">Оформить заказ</button>
             </div>
         </div>
     </div>
 
-    <!-- Модальное окно: Вход -->
+    <!-- Модальное окно: Форма входа/регистрации -->
     <div class="modal" id="authModal">
+        <!-- Оверлей -->
         <div class="modal__overlay" id="authModalOverlay"></div>
+        <!-- Контент: форма авторизации -->
         <div class="modal__content modal__content--auth">
+            <!-- Кнопка закрытия -->
             <button class="modal__close" id="authModalClose">×</button>
+            <!-- Заголовок -->
             <h2 class="modal__title">Вход</h2>
-
-            <!-- Форма ВХОДА -->
+            
+            <!-- Форма входа -->
             <form class="form" id="loginForm">
+                <!-- Поле email -->
                 <div class="form-group">
                     <label class="form-label">Email</label>
                     <input type="email" class="form-input" placeholder="email@example.com" required>
                 </div>
+                <!-- Поле пароль -->
                 <div class="form-group">
                     <label class="form-label">Пароль</label>
                     <input type="password" class="form-input" placeholder="••••••••" required>
                 </div>
+                <!-- Кнопка входа -->
                 <button type="submit" class="btn btn--primary btn--full">Войти</button>
             </form>
 
-            <!-- Форма РЕГИСТРАЦИИ (скрыта по умолчанию) -->
+            <!-- Форма регистрации: скрыта по умолчанию (класс hidden) -->
             <form class="form hidden" id="registerForm">
+                <!-- Поле ФИО -->
                 <div class="form-group">
                     <label class="form-label">ФИО</label>
                     <input type="text" id="regName" class="form-input" placeholder="Иванов Иван Иванович" required>
                 </div>
+                <!-- Поле телефон -->
                 <div class="form-group">
                     <label class="form-label">Телефон</label>
                     <input type="tel" id="regPhone" class="form-input" placeholder="+7 (999) 000-00-00" required>
                 </div>
+                <!-- Поле email -->
                 <div class="form-group">
                     <label class="form-label">Email</label>
                     <input type="email" class="form-input" placeholder="email@example.com" required>
                 </div>
+                <!-- Поле пароль -->
                 <div class="form-group">
                     <label class="form-label">Пароль</label>
                     <input type="password" class="form-input" placeholder="••••••••" required>
                 </div>
+                <!-- Кнопка регистрации -->
                 <button type="submit" class="btn btn--primary btn--full">Зарегистрироваться</button>
             </form>
 
-            <!-- Ссылки переключения -->
-            <p class="auth-form__switch">Нет аккаунта? <a href="#" id="showRegister"
-                    style="color: var(--primary); font-weight: 700;">Зарегистрироваться</a></p>
-            <p class="auth-form__switch hidden">Есть аккаунт? <a href="#" id="showLogin"
-                    style="color: var(--primary); font-weight: 700;">Войти</a></p>
+            <!-- Ссылка переключения на форму регистрации -->
+            <p class="auth-form__switch">Нет аккаунта? <a href="#" id="showRegister" style="color: var(--primary); font-weight: 700;">Зарегистрироваться</a></p>
+            <!-- Ссылка переключения на форму входа (скрыта) -->
+            <p class="auth-form__switch hidden">Есть аккаунт? <a href="#" id="showLogin" style="color: var(--primary); font-weight: 700;">Войти</a></p>
         </div>
     </div>
 
-    <!-- Модальное окно: Требуется авторизация (ОДИН РАЗ!) -->
+    <!-- Модальное окно: Требуется авторизация (появляется при попытке оформить заказ без входа) -->
     <div class="modal" id="authRequiredModal">
+        <!-- Оверлей -->
         <div class="modal__overlay" id="authRequiredOverlay"></div>
+        <!-- Контент: сообщение о необходимости входа -->
         <div class="modal__content modal__content--cart" style="text-align: center; padding: 30px;">
+            <!-- Кнопка закрытия -->
             <button class="modal__close" id="authRequiredClose">×</button>
+            <!-- Иконка замка -->
             <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
+            <!-- Заголовок -->
             <h3 class="modal__title" style="margin-bottom: 10px;">Требуется авторизация</h3>
-            <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 15px;">
-                Пожалуйста, войдите в аккаунт, чтобы оформить заказ.
-            </p>
+            <!-- Текст сообщения -->
+            <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 15px;">Пожалуйста, войдите в аккаунт, чтобы оформить заказ.</p>
+            <!-- Кнопка перехода к форме входа -->
             <button class="btn btn--primary btn--full" id="goToLoginBtn">Войти в аккаунт</button>
         </div>
     </div>
 
-    <script src="./assets/js/main.js"></script>
+    <!-- ========================================== -->
+    <!-- SCRIPT: Подключение JavaScript             -->
+    <!-- ========================================== -->
+    
+    <!-- Подключение основного JS-файла с defer: скрипт загружается асинхронно, выполняется после парсинга HTML -->
+    <script src="./assets/js/main.js" defer></script>
+
+<!-- Закрывающий тег BODY: конец видимого контента -->
 </body>
+<!-- Закрывающий тег HTML: конец документа -->
 </html>
